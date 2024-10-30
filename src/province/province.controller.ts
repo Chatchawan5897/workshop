@@ -3,6 +3,7 @@ import { ProvinceService } from './province.service';
 import { CreateProvinceDto } from './dto/create-province.dto';
 import { UpdateProvinceDto } from './dto/update-province.dto';
 import { ApiTags, ApiResponse ,ApiOkResponse } from '@nestjs/swagger';
+import { createResponse } from '../../response.uils'; // ปรับเส้นทางตามโครงสร้างโฟลเดอร์ของคุณ
 
 @ApiTags()
 @Controller('province')
@@ -15,19 +16,7 @@ export class ProvinceController {
   async create(@Body() CreateProvinceDto:CreateProvinceDto){
     try {
       const province = await this.provinceService.create(CreateProvinceDto);
-      return {
-        status: 201, // สถานะ HTTP สำหรับการตอบกลับ
-        timestamp: new Date().toISOString(), // เปลี่ยนเป็นรูปแบบที่อ่านง่าย
-        ServerType: "mysql", // ข้อมูลที่บ่งบอกถึงประเภทเซิร์ฟเวอร์ (สามารถเปลี่ยนเป็นข้อมูลจริงได้)
-        version: "1.0.0.0", // เวอร์ชันของ API หรือแอปพลิเคชัน
-        path: "/province", // เส้นทางที่ใช้ในการเรียก API
-        method: "POST", // HTTP method ที่ใช้
-        message: 'province created successfully', // ข้อความบอกความสำเร็จ
-        displaytotal: 0, // จำนวนที่ต้องการแสดง (อาจใช้สำหรับ paginated responses)
-        total: 0, // จำนวนทั้งหมด (ในกรณีที่คุณใช้ pagination)
-        state: CreateProvinceDto, // ข้อมูลที่ถูกส่งเข้ามาใน Request Body
-        items: province // รายละเอียด province ที่ถูกสร้าง (หรือสามารถใช้เป็น array หากต้องการส่งหลายรายการ)
-      }
+      return createResponse(201, 'Province created successfully', province, CreateProvinceDto, '/province', 'POST');
     } catch (error) {
       throw new BadRequestException('Failed to create province: ' + error.message);
     }
@@ -41,20 +30,8 @@ export class ProvinceController {
   async findAll() {
     try {
       const provinces  = await this.provinceService.findAll();
-      return {
-       
-        status: 200, // สถานะ HTTP สำหรับการตอบกลับ
-        timestamp: new Date().toISOString(), // เปลี่ยนเป็นรูปแบบที่อ่านง่าย
-        ServerType: "mysql", // ข้อมูลที่บ่งบอกถึงประเภทเซิร์ฟเวอร์ (สามารถเปลี่ยนเป็นข้อมูลจริงได้)
-        version: "1.0.0.0", // เวอร์ชันของ API หรือแอปพลิเคชัน
-        path: "/province", // เส้นทางที่ใช้ในการเรียก API
-        method: "GET", // HTTP method ที่ใช้
-        message: 'province findAll successfully', // ข้อความบอกความสำเร็จ
-        displaytotal: provinces.length, // จำนวนที่ต้องการแสดง (อาจใช้สำหรับ paginated responses)
-        total: 0, // นับจำนวนทั้งหมด
-        state: CreateProvinceDto, // ข้อมูลที่ถูกส่งเข้ามาใน Request Body
-        items: provinces  // รายละเอียด province ที่ถูกสร้าง (หรือสามารถใช้เป็น array หากต้องการส่งหลายรายการ)
-      }
+      return createResponse(201, 'Province findAll successfully', provinces, CreateProvinceDto, '/province', 'GET');
+      
     } catch (error) {
       throw new BadRequestException('Failed to retrieve  province: ' + error.message);
     }
@@ -72,20 +49,7 @@ export class ProvinceController {
         // ถ้าไม่มีค่า 
         throw new NotFoundException('province with Id ${id} not found');
       }
-      return {
-        status: 200,
-        timestamp: new Date().toISOString(),
-        ServerType: "mysql",
-        version: "1.0.0.0",
-        path: `/province/${id}`, // เส้นทางที่ใช้ในการเรียก API
-        method: "GET",
-        message: 'Province retrieved successfully',
-        item: province, // ส่งคืน province ที่พบ
-        meta: {
-          requestId: id, // ID ของคำขอ
-          responseTime: `${Date.now() - Date.parse(new Date().toISOString())} ms`, // ระยะเวลาที่ใช้ในการประมวลผลคำขอ (แสดงตัวอย่าง)
-        }
-      };
+      return createResponse(201, 'Province findAll successfully', province, CreateProvinceDto, '/province', 'GET');
     } catch (error) {
        // จัดการกับข้อผิดพลาดที่เกิดขึ้น
        throw new BadRequestException('Failed to retrieve province: ' + error.message);

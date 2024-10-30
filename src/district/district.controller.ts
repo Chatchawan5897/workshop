@@ -5,6 +5,7 @@ import { UpdateDistrictDto } from './dto/update-district.dto';
 import { ApiTags, ApiResponse ,ApiOkResponse } from '@nestjs/swagger';
 import { timestamp } from 'rxjs';
 import { ServerType } from 'typeorm';
+import { createResponse } from '../../response.uils'; // ปรับเส้นทางตามโครงสร้างโฟลเดอร์ของคุณ
 
 @ApiTags()
 @Controller('district')
@@ -23,7 +24,7 @@ export class DistrictController {
     return {
       status: 201 ,
       timestamp: new Date().toISOString(),
-      ServerType: 'mySql',
+      ServerType: 'UAT',
       version:"1.0.0.0",
       path:"POST",
       message:"district created successfully",
@@ -49,7 +50,7 @@ export class DistrictController {
         return {
           status: 201 ,
           timestamp: new Date().toISOString(),
-          ServerType: 'mySql',
+          ServerType: 'UAT',
           version:"1.0.0.0",
           path:"GET",
           message:"district findAll successfully",
@@ -79,7 +80,7 @@ export class DistrictController {
       return {
         status: 201 ,
         timestamp: new Date().toISOString(),
-        ServerType: 'mySql',
+        ServerType: 'UAT',
         version:"1.0.0.0",
         path:"GET",
         message:"district findOne successfully",
