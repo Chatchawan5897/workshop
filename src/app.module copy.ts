@@ -16,11 +16,11 @@ import { ConfigModule } from '@nestjs/config';
     ConfigModule.forRoot(),// ทำให้สามารถเข้าถึงค่าจาก .env
      TypeOrmModule.forRoot({
       type: 'mysql',
-      host: process.env.DB_HOST, // ค่าจาก .env
-      port: +process.env.DB_PORT, // แปลงเป็น Number
-      username: process.env.DB_USERNAME, // ค่าจาก .env
-      password: process.env.DB_PASSWORD, // ค่าจาก .env
-      database: process.env.DB_DATABASE, // ค่าจาก .env
+      host: 'localhost',
+      port: 3306,
+      username: 'root',
+      password: '',
+      database: 'workshop',
       entities: [
         Province,District ,Subdistrict
       ],
@@ -33,3 +33,17 @@ import { ConfigModule } from '@nestjs/config';
 })
 export class AppModule {}
 
+
+
+    // TypeOrmModule.forRoot({
+    //   type: 'mysql',
+    //   host: 'localhost',
+    //   port: 3306,
+    //   username: 'root',
+    //   password: '',
+    //   database: 'workshop',
+    //   entities: [
+    //     Province,District ,Subdistrict
+    //   ],
+    //   synchronize: true,
+    // }),
