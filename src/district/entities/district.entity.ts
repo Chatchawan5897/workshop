@@ -6,8 +6,11 @@ export class District {
     @PrimaryGeneratedColumn()
     id: number;
     @Column()
-    district_name :string;
-
+    nameTH :string;
+    @Column()
+    nameTEN :string;
+    @Column()
+    code:string;
     // @ManyToOne(() => Province, (province) => province.districts)
     // province: Province;
 }

@@ -13,9 +13,17 @@ export class ProvinceService {
   ) {}
 
   async create(CreateProvinceDto: CreateProvinceDto) {
-    const province = await this.provinceRepository.create(CreateProvinceDto);
-    const toCreate = await this.provinceRepository.insert(province);
-    return toCreate;
+    const newProvince = await this.provinceRepository.create({
+      ...CreateProvinceDto,
+      createdAt: new Date(), // กำหนดวันที่สร้างเป็นวันที่ปัจจุบัน
+      updatedAt: new Date(), // กำหนดวันที่แก้ไขล่าสุดเป็นวันที่ปัจจุบัน
+      createdBy: "1", // สมมติว่าคุณมีวิธีการเพื่อรับชื่อผู้สร้าง
+      updatedBy: "1", // สมมติว่าคุณมีวิธีการเพื่อรับชื่อผู้แก้ไขล่าสุด
+    });
+    return this.provinceRepository.save(newProvince);
+    // const province = await this.provinceRepository.create(CreateProvinceDto);
+    // const toCreate = await this.provinceRepository.insert(province);
+    // return toCreate;
     // const province = await this.provinceRepository.create(CreateProvinceDto);
     // return this.provinceRepository.save(province);
   }

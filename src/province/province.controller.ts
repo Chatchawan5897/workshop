@@ -16,7 +16,8 @@ export class ProvinceController {
   async create(@Body() CreateProvinceDto:CreateProvinceDto){
     try {
       const province = await this.provinceService.create(CreateProvinceDto);
-      return createResponse(201, 'Province created successfully', province, CreateProvinceDto, '/province', 'POST');
+      return createResponse(201, 'Province created successfully', province, CreateProvinceDto, 
+        '/province', 'POST');
     } catch (error) {
       throw new BadRequestException('Failed to create province: ' + error.message);
     }

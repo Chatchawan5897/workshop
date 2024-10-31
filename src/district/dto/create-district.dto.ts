@@ -1,8 +1,13 @@
-import { IsNotEmpty } from 'class-validator';
+import { IsString, IsNotEmpty, IsNumber , IsOptional } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateDistrictDto {
     @IsNotEmpty()
     @ApiProperty({ description: 'district' })
-    district_name: string;
+    nameTH: string;
+    @IsString()
+    @IsNotEmpty()
+    nameEN: string;
+    @IsOptional()
+    code?: string; // รหัสจังหวัด (ถ้ามี)
 }

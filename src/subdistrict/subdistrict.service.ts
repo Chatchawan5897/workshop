@@ -1,12 +1,27 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateSubdistrictDto } from './dto/create-subdistrict.dto';
 import { UpdateSubdistrictDto } from './dto/update-subdistrict.dto';
+import { Subdistrict } from './entities/subdistrict.entity';
 
 @Injectable()
 export class SubdistrictService {
-  create(createSubdistrictDto: CreateSubdistrictDto) {
-    return 'This action adds a new subdistrict';
+  constructor(
+    @InjectRepository(Subdistrict)
+    private readonly subdistrictRepository: Repository<Subdistrict>,
+  ){}
+
+  async create(CreateSubdistrictDto:CreateSubdistrictDto)
+  {
+    const subdistrict = await this.subdistrictRepository.create(CreateSubdistrictDto);
+    const toCreate = await this.subdistrictRepository.insert(subdistrict);
+    return toCreate;
   }
+
+  // create(createSubdistrictDto: CreateSubdistrictDto) {
+  //   return 'This action adds a new subdistrict';
+  // }
 
   findAll() {
     return `This action returns all subdistrict`;

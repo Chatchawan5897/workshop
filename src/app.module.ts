@@ -9,6 +9,14 @@ import { Province } from './province/entities/province.entity';
 import { District } from './district/entities/district.entity';
 import { Subdistrict } from './subdistrict/entities/subdistrict.entity';
 import { ConfigModule } from '@nestjs/config';
+import { UsersModule } from './users/users.module';
+import { User } from './users/entities/user.entity';
+import { ApplicantModule } from './applicant/applicant.module';
+import { AddressModule } from './address/address.module';
+import { DocumentModule } from './document/document.module';
+import { Applicant } from './applicant/entities/applicant.entity';
+import { Address } from './address/entities/address.entity';
+import { Document } from './document/entities/document.entity';
 
 
 @Module({
@@ -22,12 +30,12 @@ import { ConfigModule } from '@nestjs/config';
       password: process.env.DB_PASSWORD, // ค่าจาก .env
       database: process.env.DB_DATABASE, // ค่าจาก .env
       entities: [
-        Province,District ,Subdistrict
+        Province,District ,Subdistrict , User , Applicant,Address,Document
       ],
       synchronize: true,
     }),
 
-    ProvinceModule, DistrictModule, SubdistrictModule],
+    ProvinceModule, DistrictModule, SubdistrictModule, UsersModule, DocumentModule, ApplicantModule, AddressModule],
   controllers: [AppController],
   providers: [AppService],
 })
